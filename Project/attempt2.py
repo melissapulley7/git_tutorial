@@ -7,6 +7,21 @@ matplotlib.use('TKAgg')
 import pycxsimulator
 from pylab import *
 
+## Defines prey class
+class prey:
+    def __init__(self,N = 30):
+        self.max_dist = N
+        self.x = rnd.randint(-self.max_dist,self.max_dist)
+        self.y = rnd.randint(-self.max_dist,self.max_dist)
+
+    def die(self):
+        '''
+        This function causes an agent to "die", but it reappears somewhere else 
+        to maintain constant density
+        '''
+        self.x = rnd.randint(-self.max_dist,self.max_dist)
+        self.y = rnd.randint(-self.max_dist,self.max_dist)
+
 ## Defines predator class
 class pred:
     def __init__(self,h_time = 10):
@@ -34,21 +49,6 @@ class pred:
             self.count_down = self._handling_time ##
             self.num_prey_captured += 1
 
-
-## Defines prey class
-class prey:
-    def __init__(self,N = 30):
-        self.max_dist = N
-        self.x = rnd.randint(-self.max_dist,self.max_dist)
-        self.y = rnd.randint(-self.max_dist,self.max_dist)
-
-    def die(self):
-        '''
-        This function causes an agent to "die", but it reappears somewhere else 
-        to maintain constant density
-        '''
-        self.x = rnd.randint(-self.max_dist,self.max_dist)
-        self.y = rnd.randint(-self.max_dist,self.max_dist)
 
 ## Sets up environment
 def initialize():
