@@ -14,14 +14,12 @@ import pred
 
 
 ## To become initialize agents and environment
-def initialize(num_prey=100):
+def initialize(num_prey=50):
     global predator
     global  prey_all
     predator = pred.pred(h_time=10)
     prey_all = []
     for i in range(num_prey):
-        #prey_i = prey()
-        #prey_all.append(prey_i)
         prey_all.append(prey.prey())
 
 #Updates plot
@@ -30,7 +28,7 @@ def observe():
     plt.plot(predator.x, predator.y, 'rv', markersize=10)
     plt.plot([prey.x for prey in prey_all], [prey.y for prey in prey_all], 'ko')
     axis('image')
-    axis([-30,30,-30,30])
+    axis([-16,16,-16,16])
     plt.show()
 
 ## To become update function
@@ -56,6 +54,11 @@ def update(r=1):
         for i in prey_captured:
             i.die()
         prey_captured = []   
+
+
+def simulate():
+    pycxsimulator.GUI().start(func=[initialize, observe, update])
+
 
 def get_data(a=100,b=210,step=10,num_per_trial=5):
     '''
