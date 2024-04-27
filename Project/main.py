@@ -1,8 +1,9 @@
 '''
 Agent-based model to visualize type II function response model
 '''
-
+import numpy as np
 import random as rnd
+import pandas as pd
 import matplotlib
 import matplotlib.pyplot as plt
 matplotlib.use('TKAgg')
@@ -12,7 +13,7 @@ import prey
 import pred
 
 
-## To become initialize agents and enviornment
+## To become initialize agents and environment
 def initialize(num_prey=100):
     global predator
     global  prey_all
@@ -35,7 +36,11 @@ def observe():
 ## To become update function
 def update(r=1):
     '''
-    r is the radius
+    Updates Functional Response ABM by 1 step.
+    Parameters
+    ----------    
+    r : float, default = 1
+        Search radius for predator to find prey
     '''
     global prey_captured
     prey_captured = [py for py in prey_all if (predator.x-py.x)**2+(predator.y-py.y)**2 < r**2]
@@ -52,11 +57,34 @@ def update(r=1):
             i.die()
         prey_captured = []   
 
-initialize(num_prey=100)
+def get_data(a=100,b=210,step=10,num_per_trial=5):
+    '''
+    Simulates ABM multiple time to generate data
+    Parameters
+    ----------
+    a : int, default = 100
+        starting prey_density value for simulation trials
+    b : int, default = 210
+        ending prey_density value for simulation trials
+    step : int, default = 10
+        step size between different prey_density values. Simulations will begin at prey_density 
+        size a and continue to (b - step)
+    num_per_trial : int, default = 5
+        number of trials per each prey_density value
+    Returns
+    ----------
+    prey density as a list
 
-npc = []
-for n in range(1000):
-    update()
-npc.append(predator.num_prey_captured)
- 
-print(npc)
+    number of prey captured as a list
+    '''
+    prey_density = []
+    total_prey_captured = []
+    for i in arange(a,b,step):
+        initialize(num_prey=i)
+        for j in range(num_per_trial):
+            for n in range(500):
+                update()
+            prey_density.append(i)
+            total_prey_captured.append(predator.num_prey_captured) 
+            #df = df._append({'Num_Prey': i, 'Num_Prey_Captured': predator.num_prey_captured},ignore_index=True)
+    return prey_density, total_prey_captured
