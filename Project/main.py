@@ -13,12 +13,12 @@ import pred
 
 
 ## To become initialize agents and enviornment
-def initialize():
+def initialize(num_prey=100):
     global predator
     global  prey_all
     predator = pred.pred(h_time=10)
     prey_all = []
-    for i in range(100):
+    for i in range(num_prey):
         #prey_i = prey()
         #prey_all.append(prey_i)
         prey_all.append(prey.prey())
@@ -50,5 +50,13 @@ def update(r=1):
         predator.finish()
         for i in prey_captured:
             i.die()
-        prey_captured = []
-    
+        prey_captured = []   
+
+initialize(num_prey=100)
+
+npc = []
+for n in range(1000):
+    update()
+npc.append(predator.num_prey_captured)
+ 
+print(npc)
