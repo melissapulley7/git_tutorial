@@ -17,7 +17,7 @@ import pred
 def initialize(num_prey=50):
     global predator
     global  prey_all
-    predator = pred.pred(h_time=10)
+    predator = pred.pred(h_time=20)
     prey_all = []
     for i in range(num_prey):
         prey_all.append(prey.prey())
@@ -32,7 +32,7 @@ def observe():
     plt.show()
 
 ## To become update function
-def update(r=1):
+def update(r=2**(1/2)):
     '''
     Updates Functional Response ABM by 1 step.
     Parameters
@@ -83,9 +83,9 @@ def get_data(a=100,b=210,step=10,num_per_trial=5):
     prey_density = []
     total_prey_captured = []
     for i in arange(a,b,step):
-        initialize(num_prey=i)
         for j in range(num_per_trial):
-            for n in range(500):
+            initialize(num_prey=i)
+            for n in range(1000):
                 update()
             prey_density.append(i)
             total_prey_captured.append(predator.num_prey_captured) 

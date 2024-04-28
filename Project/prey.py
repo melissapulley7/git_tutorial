@@ -22,4 +22,3 @@ class prey:
         '''
         self.x = rnd.randint(-self.max_dist,self.max_dist)
         self.y = rnd.randint(-self.max_dist,self.max_dist)
-
