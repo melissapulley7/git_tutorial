@@ -2,7 +2,8 @@ import matplotlib.pyplot as plt
 from pylab import *
 from main import *
 
-x,y=get_data(10,500,5,5)
+x,y=get_data(10,100,5,5)
+
 
 plt.scatter(x,y)
 plt.title("Type II Functional Response Simulation Data")

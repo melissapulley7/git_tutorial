@@ -24,14 +24,14 @@ class pred:
         Tracks number of prey consumed in one simulation
 
     '''
-    def __init__(self,h_time = 20):
+    def __init__(self,h_time = 15):
         self.max_dist = 16
-        self.x = 0                           #x location, starts at 0
+        self.x = 0                                  #x location, starts at 0
         self.y = 0
         self._handling_time = h_time
-        self.count_down = self._handling_time      #time it takes to "handle" (capture/consumed) prey, 
-        self.num_prey_captured = 0           #total number of prey captured and consumed.   
-    
+        self.count_down = self._handling_time       #time it takes to "handle" (capture/consumed) prey, 
+        self.num_prey_captured = 0                  #total number of prey captured and consumed.   
+
     def walk_(self):
         test = np.random.binomial(1,0.5,2)
         if (test[0] == 1):

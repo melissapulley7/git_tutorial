@@ -14,7 +14,7 @@ import pred
 def initialize(num_prey=50):
     global predator
     global  prey_all
-    predator = pred.pred(h_time=15)
+    predator = pred.pred(num_prey)
     prey_all = []
     for i in range(num_prey):
         prey_all.append(prey.prey())
@@ -26,7 +26,6 @@ def observe():
     plt.plot([prey.x for prey in prey_all], [prey.y for prey in prey_all], 'ko')
     axis('image')
     axis([-predator.max_dist,predator.max_dist,-predator.max_dist,predator.max_dist])
-
     plt.show()
 
 ## To become update function
@@ -52,8 +51,12 @@ def update(r=1):
         prey_captured = []   
 
 
+
+
 def simulate():
     pycxsimulator.GUI().start(func=[initialize, observe, update])
+
+
 
 
 def get_data(a=100,b=210,step=10,num_per_trial=5):
@@ -81,9 +84,10 @@ def get_data(a=100,b=210,step=10,num_per_trial=5):
     for i in arange(a,b,step):
         for j in range(num_per_trial):
             initialize(num_prey=i)
-            for n in range(1000):
+            for n in range(500):
                 update()
             prey_density.append(i)
             total_prey_captured.append(predator.num_prey_captured) 
             #df = df._append({'Num_Prey': i, 'Num_Prey_Captured': predator.num_prey_captured},ignore_index=True)
     return prey_density, total_prey_captured
+
