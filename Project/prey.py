@@ -7,11 +7,11 @@ class prey:
 
     Parameters
     ----------
-    N : integer, default = 30
+    max-dist : integer, default = 30
         length of environment for x and y directions
     '''
-    def __init__(self,N = 16):
-        self.max_dist = N 
+    def __init__(self):
+        self.max_dist = 16
         self.x = rnd.randint(-self.max_dist,self.max_dist)
         self.y = rnd.randint(-self.max_dist,self.max_dist)
 

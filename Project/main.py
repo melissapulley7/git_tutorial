@@ -1,9 +1,6 @@
 '''
 Agent-based model to visualize type II function response model
 '''
-import numpy as np
-import random as rnd
-import pandas as pd
 import matplotlib
 import matplotlib.pyplot as plt
 matplotlib.use('TKAgg')
@@ -17,7 +14,7 @@ import pred
 def initialize(num_prey=50):
     global predator
     global  prey_all
-    predator = pred.pred(h_time=20)
+    predator = pred.pred(h_time=15)
     prey_all = []
     for i in range(num_prey):
         prey_all.append(prey.prey())
@@ -28,11 +25,12 @@ def observe():
     plt.plot(predator.x, predator.y, 'rv', markersize=10)
     plt.plot([prey.x for prey in prey_all], [prey.y for prey in prey_all], 'ko')
     axis('image')
-    axis([-16,16,-16,16])
+    axis([-predator.max_dist,predator.max_dist,-predator.max_dist,predator.max_dist])
+
     plt.show()
 
 ## To become update function
-def update(r=2**(1/2)):
+def update(r=1):
     '''
     Updates Functional Response ABM by 1 step.
     Parameters
@@ -42,8 +40,6 @@ def update(r=2**(1/2)):
     '''
     global prey_captured
     prey_captured = [py for py in prey_all if (predator.x-py.x)**2+(predator.y-py.y)**2 < r**2]
-    #prey_captured = [prey_i for prey_i in prey_all if pred0.x==prey_i.x and pred0.y==prey_i.y]
-
     if prey_captured == []:
         predator.walk_()
     else:
