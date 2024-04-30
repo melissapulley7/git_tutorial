@@ -1,6 +1,8 @@
 '''
 Agent-based model to visualize type II function response model
 '''
+import numpy as np
+import random as rnd
 import matplotlib
 import matplotlib.pyplot as plt
 matplotlib.use('TKAgg')
@@ -14,7 +16,7 @@ import pred
 def initialize(num_prey=50):
     global predator
     global  prey_all
-    predator = pred.pred(num_prey)
+    predator = pred.pred(h_time=20)
     prey_all = []
     for i in range(num_prey):
         prey_all.append(prey.prey())
@@ -37,7 +39,7 @@ def update(r=1):
     r : float, default = 1
         Search radius for predator to find prey
     '''
-    global prey_captured
+    #global prey_captured
     prey_captured = [py for py in prey_all if (predator.x-py.x)**2+(predator.y-py.y)**2 < r**2]
     if prey_captured == []:
         predator.walk_()
@@ -84,10 +86,9 @@ def get_data(a=100,b=210,step=10,num_per_trial=5):
     for i in arange(a,b,step):
         for j in range(num_per_trial):
             initialize(num_prey=i)
-            for n in range(500):
+            for n in range(1000):
                 update()
             prey_density.append(i)
             total_prey_captured.append(predator.num_prey_captured) 
             #df = df._append({'Num_Prey': i, 'Num_Prey_Captured': predator.num_prey_captured},ignore_index=True)
     return prey_density, total_prey_captured
-
